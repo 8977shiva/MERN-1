@@ -1,5 +1,8 @@
-import "./App.css";
+import { useEffect } from "react";
 import { Container, AppBar, Typography, Grow, Grid } from "@material-ui/core";
+import { connect } from "react-redux";
+
+import { getPost } from "./Components/Posts/postAction";
 
 import memories from "./Components/attachments/images/memories.png";
 import Posts from "./Components/Posts/Posts";
@@ -7,8 +10,14 @@ import Form from "./Components/Form/Form";
 
 import useStyles from "./styles";
 
-function App() {
+function App(props) {
   const classes = useStyles();
+  useEffect(() => {
+    props.getPost();
+  }, []);
+
+  console.log(props.posts);
+
   return (
     <Container maxWidth="lg">
       <AppBar className={classes.appBar} position="static" color="inherit">
@@ -40,5 +49,12 @@ function App() {
     </Container>
   );
 }
+const mapStateToProps = (state) => ({
+  posts: state.postReducer.post,
+});
 
-export default App;
+const mapDispatchToProps = {
+  getPost: getPost,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
