@@ -9,6 +9,8 @@ export default makeStyles({
   },
   border: {
     border: "solid",
+
+    borderColor: "white",
   },
   fullHeightCard: {
     height: "100%",

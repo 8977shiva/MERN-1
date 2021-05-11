@@ -1,13 +1,13 @@
 import { actionsType } from "../../redux/actions";
 
 const initialState = {
-  post: [],
+  posts: [],
 };
 
 const postReducer = (state = initialState, action) => {
-  switch (action.tye) {
+  switch (action.type) {
     case actionsType.GET_POSTS:
-      return { ...state, post: action.post };
+      return { ...state, posts: action.post };
     default:
       return state;
   }

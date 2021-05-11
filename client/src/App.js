@@ -50,7 +50,7 @@ function App(props) {
   );
 }
 const mapStateToProps = (state) => ({
-  posts: state.postReducer.post,
+  posts: state.postReducer.posts,
 });
 
 const mapDispatchToProps = {

@@ -1,18 +1,31 @@
 import axios from "axios";
 import { actionsType } from "../../redux/actions";
 
-const url = "http://localhost:5000/posts";
+const url = "http://localhost:5000";
 
 export const getPost = () => {
   return (dispatch) => {
     axios
-      .get(url)
-      .then((respones) => {
+      .get(`${url}/posts`)
+      .then((response) => {
         dispatch({
           type: actionsType.GET_POSTS,
-          data: respones.data,
+          post: response.data,
         });
+        console.log("fetch successfully");
       })
-      .catch((error) => console.log(error));
+      .catch((error) => console.log(error.response));
+  };
+};
+export const createPost = (newpost) => {
+  return (dispatch) => {
+    axios
+      .post(`${url}/posts/creates`, newpost)
+      .then((response) => {
+        dispatch(getPost());
+        //Todo:toast message
+        console.log(response);
+      })
+      .catch((error) => console.log(error.response));
   };
 };
