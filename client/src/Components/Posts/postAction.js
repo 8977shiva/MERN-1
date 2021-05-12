@@ -17,6 +17,7 @@ export const getPost = () => {
       .catch((error) => console.log(error.response));
   };
 };
+
 export const createPost = (newpost) => {
   return (dispatch) => {
     axios
@@ -27,5 +28,36 @@ export const createPost = (newpost) => {
         console.log(response);
       })
       .catch((error) => console.log(error.response));
+  };
+};
+
+export const selectPost = (post) => {
+  return (dispatch) => {
+    dispatch({
+      type: actionsType.SET_POST_ID,
+      post: post,
+    });
+  };
+};
+
+export const updatePost = (id, post) => {
+  console.log("id--", id);
+  return (dispatch) => {
+    axios
+      .patch(`${url}/posts/${id}`, post)
+      .then((response) => {
+        dispatch(getPost());
+        console.log(response);
+      })
+      .catch((error) => console.log(error.response));
+  };
+};
+
+export const clearSelectedPost = () => {
+  return (dispatch) => {
+    dispatch({
+      type: actionsType.SET_POST_ID,
+      post: null,
+    });
   };
 };

@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { TextField, Button, Typography, Paper } from "@material-ui/core";
 import FileBase from "react-file-base64";
 import { connect } from "react-redux";
 
-import { createPost } from "../Posts/postAction";
+import { clearSelectedPost, createPost, updatePost } from "../Posts/postAction";
 import useStyles from "./style";
 
 const Form = (props) => {
@@ -15,9 +15,22 @@ const Form = (props) => {
     tags: "",
     selectedFile: "",
   });
+
+  useEffect(() => {
+    if (props.selectedPost) {
+      setPostData(props.selectedPost);
+      console.log(postData);
+    }
+  }, [props.selectedPost]);
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    props.createPost(postData);
+    if (props.selectedPost) {
+      props.updatePost(postData._id, postData);
+      props.clearSelectedPost();
+    } else {
+      props.createPost(postData);
+    }
     handleClearForm();
   };
 
@@ -33,6 +46,7 @@ const Form = (props) => {
     }
     console.log(_postData);
   };
+
   const handleClearForm = () => {
     setPostData({
       creator: "",
@@ -42,6 +56,7 @@ const Form = (props) => {
       selectedFile: "",
     });
   };
+
   return (
     <Paper className={classes.paper}>
       <form
@@ -50,7 +65,9 @@ const Form = (props) => {
         className={classes.form}
         onSubmit={handleSubmit}
       >
-        <Typography variant={"h6"}>Creating a Memory</Typography>
+        <Typography variant={"h6"}>
+          {props.selectedPost ? "Edit Memory" : "Creating  a Memory"}
+        </Typography>
         <TextField
           name="creator"
           variant="outlined"
@@ -114,7 +131,13 @@ const Form = (props) => {
     </Paper>
   );
 };
+
+const mapStateToProps = (state) => ({
+  selectedPost: state.postReducer.selectedPost,
+});
 const mapDispatchToProps = {
   createPost: createPost,
+  updatePost: updatePost,
+  clearSelectedPost: clearSelectedPost,
 };
-export default connect(null, mapDispatchToProps)(Form);
+export default connect(mapStateToProps, mapDispatchToProps)(Form);

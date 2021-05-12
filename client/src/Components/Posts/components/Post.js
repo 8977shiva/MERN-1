@@ -10,34 +10,43 @@ import {
 import ThumbUpAltIcon from "@material-ui/icons/ThumbUpAlt";
 import DeleteIcon from "@material-ui/icons/Delete";
 import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
+import Tooltip from "@material-ui/core/Tooltip";
 
 import moment from "moment";
 
 import useStyles from "./style";
 
-const Post = ({ post }) => {
+
+const Post = (props) => {
   const classes = useStyles();
+
   return (
     <Card className={classes.card}>
       <CardMedia
         className={classes.media}
-        image={post.selectedFile}
-        title={post.title}
+        image={props.post.selectedFile}
+        title={props.post.title}
       />
       <div className={classes.overlay}>
-        <Typography variant={"h6"}>{post.creator}</Typography>
+        <Typography variant={"h6"}>{props.post.creator}</Typography>
         <Typography variant={"body2"}>
-          {moment(post.createdAt).fromNow()}
+          {moment(props.post.createAt).fromNow()}
         </Typography>
       </div>
       <div className={classes.overlay2}>
-        <Button style={{ color: "white" }} size={"small"}>
-          <MoreHorizIcon fontSize={"default"} />
+        <Button
+          style={{ color: "white" }}
+          size={"small"}
+          onClick={() => props.selectPost(props.post)}
+        >
+          <Tooltip title={"Edit"} placement="top" arrow>
+            <MoreHorizIcon fontSize={"default"} />
+          </Tooltip>
         </Button>
       </div>
       <div className={classes.details}>
         <Typography variant={"body2"} color={"textSecondary"}>
-          {post.tags.map((tag) => `#${tag}`)}
+          {props.post.tags.map((tag) => `#${tag}`)}
         </Typography>
       </div>
       <CardContent>
@@ -47,13 +56,13 @@ const Post = ({ post }) => {
           color={"textSecondary"}
           gutterBottom
         >
-          {post.message}
+          {props.post.message}
         </Typography>
       </CardContent>
       <CardActions className={classes.cardActions}>
         <Button size={"small"} color={"primary"}>
           <ThumbUpAltIcon fontSize={"small"} />
-          Like {post.likeCount}
+          Like {props.post.likeCount}
         </Button>
         <Button size={"small"} color={"primary"}>
           <DeleteIcon fontSize={"small"} />
