@@ -5,7 +5,7 @@ import { connect } from "react-redux";
 import useStyles from "./style.js";
 
 import { CircularProgress, Grid } from "@material-ui/core";
-import { selectPost } from "./postAction";
+import { selectPost, deleteSelectedPost } from "./postAction";
 
 const Posts = (props) => {
   const classes = useStyles();
@@ -15,7 +15,11 @@ const Posts = (props) => {
       <>
         {props.posts.map((post) => (
           <Grid key={post._id} item xs={12} sm={6}>
-            <Post post={post} selectPost={props.selectPost} />
+            <Post
+              post={post}
+              selectPost={props.selectPost}
+              deleteSelectedPost={deleteSelectedPost}
+            />
           </Grid>
         ))}
       </>
@@ -37,9 +41,11 @@ const Posts = (props) => {
 };
 
 const mapStateToProps = (state) => ({
-  posts: state.postReducer.posts,
+  posts: state.postReducer.posts
 });
+
 const mapDispatchToProps = {
   selectPost: selectPost,
+  deleteSelectedPost: deleteSelectedPost
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Posts);

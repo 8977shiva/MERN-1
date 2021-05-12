@@ -10,7 +10,7 @@ export const getPost = () => {
       .then((response) => {
         dispatch({
           type: actionsType.GET_POSTS,
-          post: response.data,
+          post: response.data
         });
         console.log("fetch successfully");
       })
@@ -35,13 +35,12 @@ export const selectPost = (post) => {
   return (dispatch) => {
     dispatch({
       type: actionsType.SET_POST_ID,
-      post: post,
+      post: post
     });
   };
 };
 
 export const updatePost = (id, post) => {
-  console.log("id--", id);
   return (dispatch) => {
     axios
       .patch(`${url}/posts/${id}`, post)
@@ -49,7 +48,19 @@ export const updatePost = (id, post) => {
         dispatch(getPost());
         console.log(response);
       })
-      .catch((error) => console.log(error.response));
+      .catch((error) => console.log(error));
+  };
+};
+
+export const deleteSelectedPost = (id) => {
+  return (dispatch) => {
+    axios
+      .delete(`${url}/posts/${id}`)
+      .then((response) => {
+        dispatch(getPost());
+        console.log(response);
+      })
+      .catch((error) => console.log(error));
   };
 };
 
@@ -57,7 +68,7 @@ export const clearSelectedPost = () => {
   return (dispatch) => {
     dispatch({
       type: actionsType.SET_POST_ID,
-      post: null,
+      post: null
     });
   };
 };

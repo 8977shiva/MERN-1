@@ -64,7 +64,7 @@ const Post = (props) => {
           <ThumbUpAltIcon fontSize={"small"} />
           Like {props.post.likeCount}
         </Button>
-        <Button size={"small"} color={"primary"}>
+        <Button size={"small"} color={"primary"} onClick={()=>props.deleteSelectedPost(props.post._id)}>
           <DeleteIcon fontSize={"small"} />
           Delete
         </Button>

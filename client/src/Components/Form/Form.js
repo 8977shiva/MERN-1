@@ -19,7 +19,7 @@ const Form = (props) => {
   useEffect(() => {
     if (props.selectedPost) {
       setPostData(props.selectedPost);
-      console.log(postData);
+
     }
   }, [props.selectedPost]);
 
