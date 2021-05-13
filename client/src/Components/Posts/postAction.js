@@ -1,12 +1,14 @@
 import axios from "axios";
 import { actionsType } from "../../redux/actions";
 
-const url = "http://localhost:5000";
+const heroKuUrl = "https://mernm-1.herokuapp.com";
+const url="http://localhost:5000"
 
 export const getPost = () => {
+
   return (dispatch) => {
     axios
-      .get(`${url}/posts`)
+        .get(`${url}/posts`)
       .then((response) => {
         dispatch({
           type: actionsType.GET_POSTS,

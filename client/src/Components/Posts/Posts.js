@@ -1,14 +1,17 @@
-import React from "react";
+import React, {useEffect} from "react";
 import Post from "./components/Post";
 
 import { connect } from "react-redux";
 import useStyles from "./style.js";
 
 import { CircularProgress, Grid } from "@material-ui/core";
-import {selectPost, deleteSelectedPost, likePost} from "./postAction";
+import {selectPost, deleteSelectedPost, likePost, getPost} from "./postAction";
 
 const Posts = (props) => {
   const classes = useStyles();
+  useEffect(()=>{
+     props.getPost()
+  },[])
 
   const renderPosts = () => {
     return (
@@ -48,6 +51,8 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = {
   selectPost: selectPost,
   deleteSelectedPost: deleteSelectedPost,
-  likePost:likePost
+  likePost:likePost,
+  getPost:getPost
+
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Posts);
