@@ -12,11 +12,6 @@ import useStyles from "./styles";
 
 function App(props) {
   const classes = useStyles();
-  useEffect(() => {
-    props.getPost();
-  }, []);
-
-  console.log(props.posts);
 
   return (
     <Container maxWidth="lg">

@@ -33,7 +33,6 @@ export const updatePost = async (req, res) => {
 };
 
 export const deletePost = async (req, res) => {
-   console.log("api hit")
   const params = req.params;
   if (!mongoose.Types.ObjectId.isValid(params.id))
     return res.status(404).send("No post with that id");

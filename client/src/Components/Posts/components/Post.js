@@ -50,8 +50,16 @@ const Post = (props) => {
         </Typography>
       </div>
       <CardContent>
+          <Typography
+              className={classes.title}
+              variant={"h4"}
+              color={"textSecondary"}
+              gutterBottom
+          >
+              {props.post.title}
+          </Typography>
         <Typography
-          className={classes.title}
+
           variant={"h5"}
           color={"textSecondary"}
           gutterBottom
@@ -60,12 +68,12 @@ const Post = (props) => {
         </Typography>
       </CardContent>
       <CardActions className={classes.cardActions}>
-        <Button size={"small"} color={"primary"}>
+        <Button size={"small"} color={"primary"}  onClick={()=>props.likePost(props.post._id)}>
           <ThumbUpAltIcon fontSize={"small"} />
           Like {props.post.likeCount}
         </Button>
-        <Button size={"small"} color={"primary"} onClick={()=>props.deleteSelectedPost(props.post._id)}>
-          <DeleteIcon fontSize={"small"} />
+        <Button size={"small"} color={"primary"} onClick={()=>props.deleteSelectedPost(props.post._id)} >
+          <DeleteIcon fontSize={"small"}   />
           Delete
         </Button>
       </CardActions>

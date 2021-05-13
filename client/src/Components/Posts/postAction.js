@@ -53,7 +53,9 @@ export const updatePost = (id, post) => {
 };
 
 export const deleteSelectedPost = (id) => {
+    console.log("in func")
   return (dispatch) => {
+        console.log("in return")
     axios
       .delete(`${url}/posts/${id}`)
       .then((response) => {
@@ -71,4 +73,19 @@ export const clearSelectedPost = () => {
       post: null
     });
   };
+};
+
+
+export const likePost = (id) => {
+    console.log("in fun");
+    return (dispatch) => {
+        console.log("in return");
+        axios
+            .patch(`${url}/posts/like/${id}`)
+            .then((response) => {
+                dispatch(getPost());
+                console.log(response);
+            })
+            .catch((error) => console.log(error));
+    };
 };
