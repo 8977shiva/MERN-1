@@ -1,55 +1,28 @@
-import { useEffect } from "react";
-import { Container, AppBar, Typography, Grow, Grid } from "@material-ui/core";
-import { connect } from "react-redux";
+import { Container } from "@material-ui/core";
+import {
+    BrowserRouter as Router,
+    Switch,Route
+} from "react-router-dom";
 
-import { getPost } from "./Components/Posts/postAction";
+import NavBar from "./Components/Navbar/NavBar";
+import Home from "./Components/Home/Home";
+import Sign from "./Components/Sign/Sign";
 
-import memories from "./Components/attachments/images/memories.png";
-import Posts from "./Components/Posts/Posts";
-import Form from "./Components/Form/Form";
 
-import useStyles from "./styles";
-
-function App(props) {
-  const classes = useStyles();
+function App() {
 
   return (
+      <Router>
     <Container maxWidth="lg">
-      <AppBar className={classes.appBar} position="static" color="inherit">
-        <Typography className={classes.heading} variant="h2" align="center">
-          Memories
-        </Typography>
-        <img
-          className={classes.image}
-          src={memories}
-          alt="memories"
-          height="60"
-        />
-      </AppBar>
-      <Container>
-        <Grid
-          container
-          justify="space-between"
-          alignItems="stretch"
-          spacing={3}
-        >
-          <Grid item xs={12} sm={7}>
-            <Posts />
-          </Grid>
-          <Grid item xs={12} sm={4}>
-            <Form />
-          </Grid>
-        </Grid>
-      </Container>
+       <NavBar/>
+       <Switch>
+         <Route path="/" exact  component={Home}/>
+         <Route path="/sign-in" exact  component={Sign}/>
+       </Switch>
     </Container>
+      </Router>
   );
 }
-const mapStateToProps = (state) => ({
-  posts: state.postReducer.posts,
-});
 
-const mapDispatchToProps = {
-  getPost: getPost,
-};
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default App;
